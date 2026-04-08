@@ -353,6 +353,19 @@ def validate_response_using_validator(
 ) -> None:
     openapi_request = RequestsOpenAPIRequest(response.request)
     openapi_response = RequestsOpenAPIResponse(response)
+
+    # sanitize the response header; a charset in the content-type causes a deserialization error
+    content_type = response.headers.get("Content-Type", "")
+    if content_type:
+        key_value = "Content-Type"
+    else:
+        content_type = response.headers.get("content-type", "")
+        if content_type:
+            key_value = "content-type"
+    if "json" in content_type.lower():
+        content_type, _, _ = content_type.partition(";")
+        response.headers.update({key_value: content_type})  # pyright: ignore[reportPossiblyUnboundVariable]
+
     response_validator(request=openapi_request, response=openapi_response)
 
 
@@ -365,16 +378,6 @@ def _validate_response(
     response_validation: str,
 ) -> None:
     try:
-        content_type = response.headers.get("Content-Type", "")
-        if content_type:
-            key_value = "Content-Type"
-        else:
-            content_type = response.headers.get("content-type", "")
-            if content_type:
-                key_value = "content-type"
-        if "json" in content_type.lower():
-            content_type, _, _ = content_type.partition(";")
-            response.headers.update({key_value: content_type})  # pyright: ignore[reportPossiblyUnboundVariable]
         validate_response_using_validator(
             response=response,
             response_validator=response_validator,

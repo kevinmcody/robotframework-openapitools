@@ -1,8 +1,18 @@
 # Release notes
 
-## OpenApiTools v2.0.0
+## OpenApiTools v2.0.1
 
-### Major changes and new features
+### Bugfixes
+- Moved header sanitazion to ensure it's always applied.
+    - This closes [issue #137: Error on DataValidationError](https://github.com/MarketSquare/robotframework-openapitools/issues/137).
+
+<br><br><br>
+
+## Previous versions
+
+### OpenApiTools v2.0.0
+
+#### Major changes and new features
 - Request bodies now support all JSON types, not just `objects` (`dicts`).
     - This closes [issue #9: No body generated when root is a list](https://github.com/MarketSquare/robotframework-openapitools/issues/9).
     - Some of the `Relations` still need to be reworked to (fully) align with this change.
@@ -32,7 +42,7 @@
 - The `Test Endpoint` keyword of OpenApiDriver now also support error codes from a `PathPropertiesConstraint`.
     - This closes [issue #126: Path invalidation based on error code not supported by OpenApiDriver](https://github.com/MarketSquare/robotframework-openapitools/issues/126).
 
-### Bugfixes
+#### Bugfixes
 - Added support for the `nullable` property in OAS 3.0 schemas when generating data.
     - This closes [issue #81: nullable not taken into account in get_valid_value](https://github.com/MarketSquare/robotframework-openapitools/issues/81).
 - Support added for multiple instances of OpenApiLibCore within the same suite.
@@ -46,7 +56,7 @@
 - Fixed validation errors caused by `Content-Type` not being handled case-insensitive.
 - Fixed an exception during validation caused by `charset` being included in the `Content-Type` header for `application/json`.
 
-### Breaking changes
+#### Breaking changes
 - Addressing [issue #95: Refactor: better name for Dto](https://github.com/MarketSquare/robotframework-openapitools/issues/95) introduces a number breaking renames:
     - `Dto` has been renamed to `RelationsMapping`.
     - `constraint_mapping` has been renamed to `relations_mapping` in a number of places.
@@ -57,7 +67,7 @@
     - The `relations_mapping` property was added.
 - `invalid_property_default_response` library parameter renamed to `invalid_data_default_response`.
 
-### Additional changes
+#### Additional changes
 - Special handling of `"format": "byte"` for `"type": "string"` (OAS 3.0) was removed.
     - While some logic related to this worked, the result was never JSON-serializable.
 - The devcontainer setup was updated.
@@ -65,13 +75,11 @@
 - Updated minimum version markers for many dependencies.
 - Annotations are now complete (as far as possible under Python 3.10).
 
-### Notes
+#### Notes
 - The documentation is not yet updated with many of the changes / improvements detailed above.
 - While some tests have been updated to check / demonstrate the above changes, more tests need to be added.
 
-<br><br><br>
-
-## Previous versions
+---
 
 ### OpenApiTools v1.0.5
 
