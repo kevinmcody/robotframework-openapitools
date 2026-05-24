@@ -332,7 +332,7 @@ class IntegerSchema(SchemaBase[int], frozen=True):
     exclusiveMaximum: int | bool | None = None
     minimum: int | None = None
     exclusiveMinimum: int | bool | None = None
-    multipleOf: int | None = None
+    multipleOf: float | None = Field(default=None, gt=0)
     const: int | None = None
     enum: list[int] | None = None
     nullable: bool = False
@@ -477,7 +477,7 @@ class NumberSchema(SchemaBase[float], frozen=True):
     exclusiveMaximum: int | float | bool | None = None
     minimum: int | float | None = None
     exclusiveMinimum: int | float | bool | None = None
-    multipleOf: int | float | None = None
+    multipleOf: float | None = Field(default=None, gt=0)
     const: int | float | None = None
     enum: list[int | float] | None = None
     nullable: bool = False
